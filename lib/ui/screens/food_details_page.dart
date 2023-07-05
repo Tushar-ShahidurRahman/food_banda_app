@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_banda_app/ui/screens/order_tracking_page.dart';
+import 'package:food_banda_app/ui/utils/app_color.dart';
 
 import '../animation/scale_route.dart';
 import 'food_order_page.dart';
@@ -11,108 +13,110 @@ class FoodDetailsPage extends StatefulWidget {
 class _FoodDetailsPageState extends State<FoodDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Color(0xFFFAFAFA),
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xFF3a3737),
+    return SafeArea(
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFFAFAFA),
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: blackColor,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          brightness: Brightness.light,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.business_center,
-                  color: Color(0xFF3a3737),
-                ),
-                onPressed: () {
-                  Navigator.push(context, ScaleRoute(page: FoodOrderPage()));
-                })
-          ],
-        ),
-        body: Container(
-          padding: EdgeInsets.only(
-            left: 15,
-            right: 15,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Card(
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Image.asset(
-                  'assets/images/bestfood/' + 'ic_best_food_8' + ".jpeg",
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3.0),
-                ),
-                elevation: 1,
-                margin: EdgeInsets.all(5),
-              ),
-              /*  Container(
-                height: 150,
-                child:FoodDetailsSlider(
-                    slideImage1: "assets/images/bestfood/ic_best_food_8.jpeg",
-                    slideImage2: "assets/images/bestfood/ic_best_food_9.jpeg",
-                    slideImage3: "assets/images/bestfood/ic_best_food_10.jpeg"),
-              ),*/
-
-              FoodTitleWidget(
-                  productName: "Grilled Salmon",
-                  productPrice: "\$96.00",
-                  productHost: "pizza hut"),
-              SizedBox(
-                height: 15,
-              ),
-              AddToCartMenu(),
-              SizedBox(
-                height: 15,
-              ),
-              PreferredSize(
-                preferredSize: Size.fromHeight(50.0),
-                child: TabBar(
-                  labelColor: Color(0xFFfd3f40),
-                  indicatorColor: Color(0xFFfd3f40),
-                  unselectedLabelColor: Color(0xFFa4a1a1),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  labelStyle: TextStyle(
-                    fontWeight: FontWeight.w500,
+            // brightness: Brightness.light,
+            actions: <Widget>[
+              IconButton(
+                  icon: const Icon(
+                    Icons.add_alarm_outlined,
+                    color: Color(0xFF3a3737),
                   ),
-                  tabs: [
-                    Tab(
-                      text: 'Food Details',
-                    ),
-                    Tab(
-                      text: 'Food Reviews',
-                    ),
-                  ], // list of tabs
-                ),
-              ),
-              Container(
-                height: 150,
-                child: TabBarView(
-                  children: [
-                    Container(
-                      color: Colors.white24,
-                      child: DetailContentMenu(),
-                    ),
-                    Container(
-                      color: Colors.white24,
-                      child: DetailContentMenu(),
-                    ), // class name
-                  ],
-                ),
-              ),
-              BottomMenu(),
+                  tooltip: 'Track your order status',
+                  onPressed: () {
+                    Navigator.push(
+                        context, ScaleRoute(page: OrderTrackingPage(role: 'Buyer',)));
+                  })
             ],
+          ),
+          body: Container(
+            padding: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Image.asset(
+                      'assets/images/bestfood/' + 'ic_best_food_8' + ".jpeg",
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
+                    elevation: 1,
+                    margin: const EdgeInsets.all(5),
+                  ),
+                  /*  Container(
+                    height: 150,
+                    child:FoodDetailsSlider(
+                        slideImage1: "assets/images/bestfood/ic_best_food_8.jpeg",
+                        slideImage2: "assets/images/bestfood/ic_best_food_9.jpeg",
+                        slideImage3: "assets/images/bestfood/ic_best_food_10.jpeg"),
+                  ),*/
+
+                  FoodTitleWidget(
+                      productName: "Grilled Salmon",
+                      productPrice: "\$96.00",
+                      productHost: "pizza hut"),
+                  const SizedBox(height: 15),
+                  AddToCartMenu(),
+                  const SizedBox(height: 15),
+                  const PreferredSize(
+                    preferredSize: Size.fromHeight(50.0),
+                    child: TabBar(
+                      labelColor: redColor,
+                      indicatorColor: redColor,
+                      unselectedLabelColor: softGreyColor,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
+                      tabs: [
+                        Tab(
+                          text: 'Food Details',
+                        ),
+                        Tab(
+                          text: 'Food Reviews',
+                        ),
+                      ], // list of tabs
+                    ),
+                  ),
+                  Container(
+                    height: 150,
+                    child: TabBarView(
+                      children: [
+                        Container(
+                          color: Colors.white24,
+                          child: DetailContentMenu(),
+                        ),
+                        Container(
+                          color: Colors.white24,
+                          child: DetailContentMenu(),
+                        ), // class name
+                      ],
+                    ),
+                  ),
+                  // BottomMenu(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -120,6 +124,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
   }
 }
 
+// Food Title Widget
 class FoodTitleWidget extends StatelessWidget {
   String productName;
   String productPrice;
@@ -141,26 +146,26 @@ class FoodTitleWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               productName,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 20,
                   color: Color(0xFF3a3a3b),
                   fontWeight: FontWeight.w500),
             ),
             Text(
               productPrice,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 20,
                   color: Color(0xFF3a3a3b),
                   fontWeight: FontWeight.w500),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Row(
           children: <Widget>[
-            Text(
+            const Text(
               "by ",
               style: TextStyle(
                   fontSize: 16,
@@ -169,7 +174,7 @@ class FoodTitleWidget extends StatelessWidget {
             ),
             Text(
               productHost,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16,
                   color: Color(0xFF1f1f1f),
                   fontWeight: FontWeight.w400),
@@ -181,95 +186,100 @@ class FoodTitleWidget extends StatelessWidget {
   }
 }
 
-class BottomMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.timelapse,
-                color: Color(0xFF404aff),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "12pm-3pm",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.directions,
-                color: Color(0xFF23c58a),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "3.5 km",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.map,
-                color: Color(0xFFff0654),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "Map View",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.directions_bike,
-                color: Color(0xFFe95959),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "Delivery",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+// Bottom Menu
+// class BottomMenu extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: double.infinity,
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceAround,
+//         children: <Widget>[
+//           Column(
+//             children: const <Widget>[
+//               Icon(
+//                 Icons.timelapse,
+//                 color: Color(0xFF404aff),
+//                 size: 35,
+//               ),
+//               SizedBox(
+//                 height: 15,
+//               ),
+//               Text(
+//                 "12pm-3pm",
+//                 style: TextStyle(
+//                     fontSize: 14,
+//                     color: Color(0xFFa9a9a9),
+//                     fontWeight: FontWeight.w300),
+//               )
+//             ],
+//           ),
+//           Column(
+//             children: const <Widget>[
+//               Icon(
+//                 Icons.directions,
+//                 color: Color(0xFF23c58a),
+//                 size: 35,
+//               ),
+//               SizedBox(
+//                 height: 15,
+//               ),
+//               Text(
+//                 "3.5 km",
+//                 style: TextStyle(
+//                     fontSize: 14,
+//                     color: Color(0xFFa9a9a9),
+//                     fontWeight: FontWeight.w300),
+//               )
+//             ],
+//           ),
+//           Column(
+//             children: const <Widget>[
+//               Icon(
+//                 Icons.map,
+//                 color: Color(0xFFff0654),
+//                 size: 35,
+//               ),
+//               SizedBox(
+//                 height: 15,
+//               ),
+//               Text(
+//                 "Map View",
+//                 style: TextStyle(
+//                     fontSize: 14,
+//                     color: Color(0xFFa9a9a9),
+//                     fontWeight: FontWeight.w300),
+//               )
+//             ],
+//           ),
+//           Column(
+//             children: const <Widget>[
+//               Icon(
+//                 Icons.directions_bike,
+//                 color: Color(0xFFe95959),
+//                 size: 35,
+//               ),
+//               SizedBox(
+//                 height: 15,
+//               ),
+//               Text(
+//                 "Delivery",
+//                 style: TextStyle(
+//                     fontSize: 14,
+//                     color: Color(0xFFa9a9a9),
+//                     fontWeight: FontWeight.w300),
+//               )
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// Add to Cart Menu
+//This custom widget contains the functionality for adding
+// the food item to the cart.
 
 class AddToCartMenu extends StatelessWidget {
   @override
@@ -280,7 +290,7 @@ class AddToCartMenu extends StatelessWidget {
         children: <Widget>[
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.remove),
+            icon: const Icon(Icons.remove),
             color: Colors.black,
             iconSize: 30,
           ),
@@ -291,15 +301,15 @@ class AddToCartMenu extends StatelessWidget {
             child: Container(
               width: 200.0,
               height: 45.0,
-              decoration: new BoxDecoration(
-                color: Color(0xFFfd2c2c),
+              decoration: BoxDecoration(
+                color: redColor,
                 border: Border.all(color: Colors.white, width: 2.0),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
-                  'Add To Bag',
-                  style: new TextStyle(
+                  'Add To Cart',
+                  style: TextStyle(
                       fontSize: 18.0,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
@@ -309,8 +319,8 @@ class AddToCartMenu extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.add),
-            color: Color(0xFFfd2c2c),
+            icon: const Icon(Icons.add),
+            color: const Color(0xFFfd2c2c),
             iconSize: 30,
           ),
         ],
@@ -319,11 +329,15 @@ class AddToCartMenu extends StatelessWidget {
   }
 }
 
+// Food Detail Content Menu
+//This custom widget displays the details and description
+// of the food item in a container. The provided sample text
+// is a placeholder and can be replaced with actual content.
 class DetailContentMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
+      child: const Text(
         'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book.',
         style: TextStyle(
             fontSize: 14.0,
