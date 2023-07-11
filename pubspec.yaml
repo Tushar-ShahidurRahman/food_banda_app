@@ -41,8 +41,9 @@ dependencies:
   get: ^4.6.5
   carousel_slider: ^4.2.1
   font_awesome_flutter: ^10.4.0
-  firebase_messaging:
-  flutter_local_notifications:
+  firebase_messaging: ^14.6.4
+#  firebase_messaging:
+#  flutter_local_notifications:
 
 
 dev_dependencies:
